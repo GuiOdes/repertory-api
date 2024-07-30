@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: debezium/postgres:14-alpine
+    restart: unless-stopped
+    container_name: postgres-repertory
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: repertory
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U root -d repertory" ]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+volumes:
+  postgres: { }

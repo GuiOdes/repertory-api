@@ -1,0 +1,13 @@
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/repertory
+        username: ${DB_USER:root}
+        password: ${DB_PASS:root}
+
+
+security:
+    jwt:
+        expiration-seconds: 86400000
+    key:
+        public: classpath:key.pub
+        private: classpath:key.app
