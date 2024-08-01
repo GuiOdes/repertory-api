@@ -33,7 +33,7 @@ class SecurityConfiguration(
     fun securityFilterChain(httpSecurity: HttpSecurity): SecurityFilterChain? {
         httpSecurity.authorizeHttpRequests {
             it
-                .requestMatchers("/user/new")
+                .requestMatchers("/user/new", "/login")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

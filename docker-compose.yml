@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   postgres:
-    image: debezium/postgres:14-alpine
+    image: debezium/postgres:15-alpine
     restart: unless-stopped
     container_name: postgres-repertory
     ports:

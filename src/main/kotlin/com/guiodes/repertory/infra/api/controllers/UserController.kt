@@ -14,7 +14,7 @@ class UserController(
     private val createUserUseCase: CreateUserUseCase
 ) {
 
-    @PostMapping
+    @PostMapping("/new")
     fun createUser(@RequestBody request: CreateUserRequest): User {
         return createUserUseCase.execute(request)
     }

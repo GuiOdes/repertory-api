@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/login")
 class LoginController(
-    private val jwtEncoder: JwtEncoder,
     private val authenticateUserUseCase: AuthenticateUserUseCase
 ) {
 
     @PostMapping
     fun login(@RequestBody request: LoginRequest): LoginResponse {
-        return createUserUseCase.execute(request)
+        return authenticateUserUseCase.execute(request)
     }
 }

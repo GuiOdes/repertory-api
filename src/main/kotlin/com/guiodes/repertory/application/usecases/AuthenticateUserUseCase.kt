@@ -14,16 +14,15 @@ import java.time.Instant
 class AuthenticateUserUseCase(
     private val userRepository: UserRepository,
     private val passwordEncoder: BCryptPasswordEncoder,
-    @Value("\${security.jwt.expiration-seconds}")
     private val jwtExpiration: Long,
     private val jwtEncoder: JwtEncoder
 ) {
 
     fun execute(loginRequest: LoginRequest): LoginResponse {
-        val user = userRepository.findByEmailAndPassword(
-            loginRequest.email,
-            passwordEncoder.encode(loginRequest.password)
-        ) ?: throw BadCredentialsException("Invalid credentials")
+        val user = userRepository.findByEmail(loginRequest.email)
+            ?: throw RuntimeException("User not found")
+
+        if (!passwordEncoder.matches(loginRequest.password, user.password)) throw BadCredentialsException("Invalid credentials")
 
         val now = Instant.now()
 
