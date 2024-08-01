@@ -8,5 +8,5 @@ data class UserMinistry(
     val userId: UUID,
     val isAdmin: Boolean,
     val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime
+    val updatedAt: LocalDateTime,
 )

@@ -6,13 +6,12 @@ import java.util.UUID
 
 data class WorshipMinistry(
     val name: String,
-    val users: List<UserMinistry>
-): BaseEntity() {
-
+    val users: List<UserMinistry>,
+) : BaseEntity() {
     data class UserMinistry(
         val userId: UUID,
         val isAdmin: Boolean,
         val createdAt: LocalDateTime,
-        val updatedAt: LocalDateTime
+        val updatedAt: LocalDateTime,
     )
 }

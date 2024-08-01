@@ -8,34 +8,34 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import org.springframework.stereotype.Repository
 import java.sql.ResultSet
-import java.util.*
+import java.util.UUID
 
 @Repository
 class UserRepository(
-    private val jdbcTemplate: NamedParameterJdbcTemplate
+    private val jdbcTemplate: NamedParameterJdbcTemplate,
 ) : UserRepository {
     override fun findByEmail(email: String): User? {
-        val parameters = MapSqlParameterSource()
-            .addValue("email", email)
+        val parameters =
+            MapSqlParameterSource()
+                .addValue("email", email)
 
         return jdbcTemplate.queryForObject(
             UserExpressions.FIND.addWhere(UserExpressions.EMAIL),
             parameters,
-            rowMapper()
+            rowMapper(),
         )
     }
 
     override fun save(entity: User): User {
-        val parameters = MapSqlParameterSource()
-            .addValue("id", entity.id)
-            .addValue("name", entity.name)
-            .addValue("email", entity.email)
-            .addValue("password", entity.password)
-            .addValue("isActive", entity.isActive)
-            .addValue("createdAt", entity.createdAt)
-            .addValue("updatedAt", entity.updatedAt)
-
-        println("SENHAAAAA: ${entity.password}")
+        val parameters =
+            MapSqlParameterSource()
+                .addValue("id", entity.id)
+                .addValue("name", entity.name)
+                .addValue("email", entity.email)
+                .addValue("password", entity.password)
+                .addValue("isActive", entity.isActive)
+                .addValue("createdAt", entity.createdAt)
+                .addValue("updatedAt", entity.updatedAt)
 
         jdbcTemplate.update(UserExpressions.SAVE, parameters)
 
@@ -58,8 +58,8 @@ class UserRepository(
         TODO("Not yet implemented")
     }
 
-    private fun rowMapper(): (rs: ResultSet, rowNum: Int) -> User {
-        return { rs, _ ->
+    private fun rowMapper(): (rs: ResultSet, rowNum: Int) -> User =
+        { rs, _ ->
             User(
                 id = UUID.fromString(rs.getString("ID")),
                 name = rs.getString("NAME"),
@@ -67,8 +67,7 @@ class UserRepository(
                 isActive = rs.getBoolean("IS_ACTIVE"),
                 password = rs.getString("PASSWORD"),
                 createdAt = rs.getTimestamp("CREATED_AT").toLocalDateTime(),
-                updatedAt = rs.getTimestamp("UPDATED_AT").toLocalDateTime()
+                updatedAt = rs.getTimestamp("UPDATED_AT").toLocalDateTime(),
             )
         }
-    }
 }

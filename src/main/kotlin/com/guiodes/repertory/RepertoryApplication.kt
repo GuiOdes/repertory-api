@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class RepertoryApplication
 
 fun main(args: Array<String>) {
-	runApplication<RepertoryApplication>(*args)
+    runApplication<RepertoryApplication>(*args)
 }

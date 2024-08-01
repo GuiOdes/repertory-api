@@ -11,11 +11,10 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/user")
 class UserController(
-    private val createUserUseCase: CreateUserUseCase
+    private val createUserUseCase: CreateUserUseCase,
 ) {
-
     @PostMapping("/new")
-    fun createUser(@RequestBody request: CreateUserRequest): User {
-        return createUserUseCase.execute(request)
-    }
+    fun createUser(
+        @RequestBody request: CreateUserRequest,
+    ): User = createUserUseCase.execute(request)
 }

@@ -26,34 +26,35 @@ class SecurityConfiguration(
     @Value("\${security.key.public}")
     private val publicKey: RSAPublicKey,
     @Value("\${security.key.private}")
-    private val privateKey: RSAPrivateKey
+    private val privateKey: RSAPrivateKey,
 ) {
-
     @Bean
     fun securityFilterChain(httpSecurity: HttpSecurity): SecurityFilterChain? {
-        httpSecurity.authorizeHttpRequests {
-            it
-                .requestMatchers("/user/new", "/login")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-        }.csrf {
-            it.disable()
-        }.oauth2ResourceServer {
-            it.jwt(Customizer.withDefaults())
-        }.sessionManagement {
-            it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        }
+        httpSecurity
+            .authorizeHttpRequests {
+                it
+                    .requestMatchers("/user/new", "/login")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated()
+            }.csrf {
+                it.disable()
+            }.oauth2ResourceServer {
+                it.jwt(Customizer.withDefaults())
+            }.sessionManagement {
+                it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            }
 
         return httpSecurity.build()
     }
 
     @Bean
     fun jwtEncoder(): JwtEncoder {
-        val jwk = Builder(publicKey)
-            .privateKey(privateKey)
-            .keyID("key-id")
-            .build()
+        val jwk =
+            Builder(publicKey)
+                .privateKey(privateKey)
+                .keyID("key-id")
+                .build()
 
         val jwks = ImmutableJWKSet<SecurityContext>(JWKSet(jwk))
 
@@ -61,9 +62,7 @@ class SecurityConfiguration(
     }
 
     @Bean
-    fun jwtDecoder(): JwtDecoder {
-        return NimbusJwtDecoder.withPublicKey(publicKey).build()
-    }
+    fun jwtDecoder(): JwtDecoder = NimbusJwtDecoder.withPublicKey(publicKey).build()
 
     @Bean
     fun passwordEncoder() = BCryptPasswordEncoder()

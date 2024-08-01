@@ -14,8 +14,9 @@ data class User(
     val instruments: List<Instrument> = emptyList(),
     private val authorities: List<Authority> = emptyList(),
     override val createdAt: LocalDateTime = LocalDateTime.now(),
-    override val updatedAt: LocalDateTime = LocalDateTime.now()
-): BaseEntity(), UserDetails {
+    override val updatedAt: LocalDateTime = LocalDateTime.now(),
+) : BaseEntity(),
+    UserDetails {
     override fun getAuthorities() = authorities
 
     override fun getPassword() = password

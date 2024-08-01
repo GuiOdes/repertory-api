@@ -6,5 +6,5 @@ import java.util.UUID
 abstract class BaseEntity(
     open val id: UUID? = null,
     open val createdAt: LocalDateTime = LocalDateTime.now(),
-    open val updatedAt: LocalDateTime = LocalDateTime.now()
+    open val updatedAt: LocalDateTime = LocalDateTime.now(),
 )

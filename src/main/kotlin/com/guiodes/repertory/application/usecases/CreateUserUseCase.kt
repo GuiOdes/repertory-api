@@ -7,7 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 class CreateUserUseCase(
     private val repository: UserRepository,
-    private val passwordEncoder: BCryptPasswordEncoder
+    private val passwordEncoder: BCryptPasswordEncoder,
 ) {
     fun execute(request: CreateUserRequest): User {
         val encodedPassword = passwordEncoder.encode(request.password)

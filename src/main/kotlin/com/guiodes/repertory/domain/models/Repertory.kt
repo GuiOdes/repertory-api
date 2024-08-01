@@ -5,11 +5,10 @@ import java.time.LocalDate
 
 data class Repertory(
     val playAt: LocalDate,
-    val musicList: List<RepertoryMusic>
-): BaseEntity() {
-
+    val musicList: List<RepertoryMusic>,
+) : BaseEntity() {
     data class RepertoryMusic(
         val music: Music,
-        val observations: String
+        val observations: String,
     )
 }

@@ -11,5 +11,5 @@ data class Music(
     val videoLink: String,
     val capo: String,
     val isReadyToPlay: Boolean,
-    val ministryId: UUID
+    val ministryId: UUID,
 ) : BaseEntity()

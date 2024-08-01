@@ -1,7 +1,6 @@
 package com.guiodes.repertory.infra.database.expressions
 
 object UserExpressions {
-
     const val SAVE = """
         INSERT INTO "USER" (
             ID,
