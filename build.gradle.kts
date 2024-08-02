@@ -7,6 +7,7 @@ plugins {
     kotlin("jvm") version "1.9.24"
     kotlin("plugin.spring") version "1.9.24"
     id("org.jetbrains.kotlinx.kover") version "0.8.3"
+    id("com.ryandens.javaagent-test") version "0.5.1"
 }
 
 group = "com.guiodes"
@@ -48,6 +49,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-testcontainers:3.3.2")
     testImplementation("org.testcontainers:junit-jupiter:1.20.0")
     testImplementation("org.testcontainers:postgresql:$postgresSqlTestContainersVersion")
+    testJavaagent("net.bytebuddy:byte-buddy-agent:1.4.13")
 }
 
 kotlin {

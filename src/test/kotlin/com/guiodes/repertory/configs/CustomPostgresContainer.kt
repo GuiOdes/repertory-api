@@ -6,12 +6,12 @@ import org.springframework.context.ConfigurableApplicationContext
 import org.testcontainers.containers.PostgreSQLContainer
 
 class CustomPostgresContainer :
-    PostgreSQLContainer<CustomPostgresContainer>("postgres:14-alpine"),
+    PostgreSQLContainer<CustomPostgresContainer>("postgres:15-alpine"),
     IntegrationTestsConfiguration {
     init {
         withUsername("root")
         withPassword("root")
-        withDatabaseName("commands")
+        withDatabaseName("repertory")
 
         start()
 
