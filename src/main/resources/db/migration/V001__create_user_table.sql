@@ -1,4 +1,4 @@
-CREATE TABLE "USER"
+CREATE TABLE TB_USER
 (
     ID         UUID PRIMARY KEY NOT NULL,
     NAME       VARCHAR          NOT NULL,
@@ -9,9 +9,9 @@ CREATE TABLE "USER"
     UPDATED_AT TIMESTAMP        NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-COMMENT ON TABLE "USER" IS 'User table';
-COMMENT ON COLUMN "USER".NAME IS 'User name';
-COMMENT ON COLUMN "USER".ID IS 'Users primary key';
-COMMENT ON COLUMN "USER".EMAIL IS 'User email to login';
-COMMENT ON COLUMN "USER".PASSWORD IS 'User password hash';
-COMMENT ON COLUMN "USER".IS_ACTIVE IS 'User active status flag for spring security';
+COMMENT ON TABLE TB_USER IS 'User table';
+COMMENT ON COLUMN TB_USER.NAME IS 'User name';
+COMMENT ON COLUMN TB_USER.ID IS 'Users primary key';
+COMMENT ON COLUMN TB_USER.EMAIL IS 'User email to login';
+COMMENT ON COLUMN TB_USER.PASSWORD IS 'User password hash';
+COMMENT ON COLUMN TB_USER.IS_ACTIVE IS 'User active status flag for spring security';

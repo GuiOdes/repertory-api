@@ -2,7 +2,7 @@ package com.guiodes.repertory.infra.database.expressions
 
 object UserExpressions {
     const val SAVE = """
-        INSERT INTO "USER" (
+        INSERT INTO TB_USER (
             ID,
             NAME,
             EMAIL,
@@ -30,11 +30,11 @@ object UserExpressions {
             IS_ACTIVE,
             CREATED_AT,
             UPDATED_AT
-        FROM "USER"
+        FROM TB_USER
     """
 
     const val UPDATE = """
-        UPDATE "USER" SET
+        UPDATE TB_USER SET
             NAME = :name,
             EMAIL = :email,
             PASSWORD = :password,

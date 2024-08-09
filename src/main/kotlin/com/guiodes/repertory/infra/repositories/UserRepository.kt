@@ -50,13 +50,19 @@ class UserRepository(
         TODO("Not yet implemented")
     }
 
-    override fun findById(id: Long): User? {
-        TODO("Not yet implemented")
+    override fun findById(id: UUID): User? {
+        val parameters =
+            MapSqlParameterSource()
+                .addValue("id", id)
+
+        return jdbcTemplate.queryForObject(
+            UserExpressions.FIND.addWhere(UserExpressions.ID),
+            parameters,
+            rowMapper(),
+        )
     }
 
-    override fun findAll(): List<User> {
-        TODO("Not yet implemented")
-    }
+    override fun findAll(): List<User> = jdbcTemplate.query(UserExpressions.FIND, rowMapper())
 
     private fun rowMapper(): (rs: ResultSet, rowNum: Int) -> User =
         { rs, _ ->

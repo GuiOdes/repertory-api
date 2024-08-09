@@ -1,5 +1,6 @@
 package com.guiodes.repertory.infra.configs
 
+import com.nimbusds.jose.jwk.JWK
 import com.nimbusds.jose.jwk.JWKSet
 import com.nimbusds.jose.jwk.RSAKey.Builder
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet
@@ -50,12 +51,7 @@ class SecurityConfiguration(
 
     @Bean
     fun jwtEncoder(): JwtEncoder {
-        val jwk =
-            Builder(publicKey)
-                .privateKey(privateKey)
-                .keyID("key-id")
-                .build()
-
+        val jwk: JWK = Builder(this.publicKey).privateKey(privateKey).build()
         val jwks = ImmutableJWKSet<SecurityContext>(JWKSet(jwk))
 
         return NimbusJwtEncoder(jwks)

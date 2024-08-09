@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class RepertoryApplicationTests: IntegrationTest() {
+class RepertoryApplicationTests : IntegrationTest() {
     @Test
     fun contextLoads() {
         println("Hello World!")
