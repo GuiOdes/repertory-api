@@ -31,6 +31,7 @@ object UserExpressions {
             CREATED_AT,
             UPDATED_AT
         FROM TB_USER
+        WHERE IS_ACTIVE = TRUE
     """
 
     const val UPDATE = """
@@ -40,6 +41,18 @@ object UserExpressions {
             PASSWORD = :password,
             IS_ACTIVE = :isActive,
             UPDATED_AT = :updatedAt
+        WHERE ID = :id
+    """
+
+    const val SOFT_DELETE = """
+        UPDATE TB_USER SET
+            IS_ACTIVE = FALSE
+        WHERE ID = :id
+    """
+
+    const val RESTORE = """
+        UPDATE TB_USER SET
+            IS_ACTIVE = TRUE
         WHERE ID = :id
     """
 

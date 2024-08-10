@@ -3,21 +3,32 @@ package com.guiodes.repertory.builders
 import com.guiodes.repertory.domain.models.Authority
 import com.guiodes.repertory.domain.models.Instrument
 import com.guiodes.repertory.domain.models.User
+import com.guiodes.repertory.infra.api.requests.CreateUserRequest
 import java.time.LocalDateTime
 import java.util.UUID
 
-object UserBuilder {
-    fun build(
-        id: UUID = UUID.randomUUID(),
+class UserBuilder: BaseEntityBuilder<User> {
+    private val id: UUID = UUID.randomUUID()
+    private val name: String = "name"
+    private val isActive: Boolean = true
+    private val email: String = "email@email.com"
+    private val password: String = "password"
+    private val instruments: List<Instrument> = emptyList()
+    private val authorities: List<Authority> = emptyList()
+    private val createdAt: LocalDateTime = LocalDateTime.now()
+    private val updatedAt: LocalDateTime = LocalDateTime.now()
+
+    fun buildRequest(
         name: String = "name",
-        isActive: Boolean = true,
-        email: String = "email@email.com",
+        email: String = "user@user.com",
         password: String = "password",
-        instruments: List<Instrument> = emptyList(),
-        authorities: List<Authority> = emptyList(),
-        createdAt: LocalDateTime = LocalDateTime.now(),
-        updatedAt: LocalDateTime = LocalDateTime.now(),
-    ) = User(
+    ) = CreateUserRequest(
+        name = name,
+        email = email,
+        password = password,
+    )
+
+    override fun build() = User(
         id = id,
         name = name,
         isActive = isActive,

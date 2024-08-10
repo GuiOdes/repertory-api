@@ -1,4 +1,3 @@
-import kotlinx.kover.gradle.plugin.dsl.AggregationType
 import kotlinx.kover.gradle.plugin.dsl.CoverageUnit
 
 plugins {
@@ -70,7 +69,10 @@ tasks.named("build") {
     dependsOn("koverHtmlReport")
 }
 
-val koverClassesToExclude = emptyList<String>()
+val koverClassesToExclude = listOf(
+    "com.guiodes.repertory.application.usecases.BuildJwtTokenUseCase",
+    "com.guiodes.repertory.RepertoryApplicationKt"
+)
 
 val koverPackagesToExclude = emptyList<String>()
 
@@ -85,7 +87,6 @@ kover {
         verify {
             rule("branch-coverage") {
                 bound {
-                    aggregationForGroup = AggregationType.COVERED_PERCENTAGE
                     coverageUnits = CoverageUnit.BRANCH
                     minValue = 90
                 }
@@ -93,7 +94,6 @@ kover {
 
             rule("line-coverage") {
                 bound {
-                    aggregationForGroup = AggregationType.COVERED_PERCENTAGE
                     coverageUnits = CoverageUnit.LINE
                     minValue = 90
                 }

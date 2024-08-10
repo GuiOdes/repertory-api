@@ -1,6 +1,7 @@
 package com.guiodes.repertory.infra.api.controllers
 
 import com.guiodes.repertory.application.usecases.CreateUserUseCase
+import com.guiodes.repertory.builders.UserBuilder
 import com.guiodes.repertory.configs.IntegrationTest
 import com.guiodes.repertory.domain.models.User
 import com.guiodes.repertory.infra.api.requests.CreateUserRequest
@@ -21,12 +22,7 @@ class LoginControllerIT(
     @Autowired private val createUserUseCase: CreateUserUseCase,
     @Autowired private val jwtDecoder: JwtDecoder,
 ) : IntegrationTest() {
-    private val request =
-        CreateUserRequest(
-            name = "User",
-            email = "user@user.com",
-            password = "password",
-        )
+    private val request = UserBuilder().buildRequest()
 
     private lateinit var user: User
 

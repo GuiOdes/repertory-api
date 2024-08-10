@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(MockKExtension::class)
-class UnitTest {
+open class UnitTest {
     @BeforeEach
     fun setUp() {
         clearAllMocks()

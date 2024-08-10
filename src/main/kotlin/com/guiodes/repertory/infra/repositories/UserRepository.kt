@@ -2,7 +2,7 @@ package com.guiodes.repertory.infra.repositories
 
 import com.guiodes.repertory.application.repositories.UserRepository
 import com.guiodes.repertory.domain.models.User
-import com.guiodes.repertory.infra.database.addWhere
+import com.guiodes.repertory.infra.database.addCondition
 import com.guiodes.repertory.infra.database.expressions.UserExpressions
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
@@ -19,11 +19,11 @@ class UserRepository(
             MapSqlParameterSource()
                 .addValue("email", email)
 
-        return jdbcTemplate.queryForObject(
-            UserExpressions.FIND.addWhere(UserExpressions.EMAIL),
+        return jdbcTemplate.query(
+            UserExpressions.FIND.addCondition(UserExpressions.EMAIL),
             parameters,
             rowMapper(),
-        )
+        ).firstOrNull()
     }
 
     override fun save(entity: User): User {
@@ -43,11 +43,34 @@ class UserRepository(
     }
 
     override fun update(entity: User): User {
-        TODO("Not yet implemented")
+        val parameters =
+            MapSqlParameterSource()
+                .addValue("id", entity.id)
+                .addValue("name", entity.name)
+                .addValue("email", entity.email)
+                .addValue("password", entity.password)
+                .addValue("isActive", entity.isActive)
+                .addValue("updatedAt", entity.updatedAt)
+
+        jdbcTemplate.update(UserExpressions.UPDATE, parameters)
+
+        return entity
     }
 
     override fun delete(entity: User) {
-        TODO("Not yet implemented")
+        val parameters =
+            MapSqlParameterSource()
+                .addValue("id", entity.id)
+
+        jdbcTemplate.update(UserExpressions.SOFT_DELETE, parameters)
+    }
+
+    override fun restoreById(id: UUID) {
+        val parameters =
+            MapSqlParameterSource()
+                .addValue("id", id)
+
+        jdbcTemplate.update(UserExpressions.RESTORE, parameters)
     }
 
     override fun findById(id: UUID): User? {
@@ -55,11 +78,11 @@ class UserRepository(
             MapSqlParameterSource()
                 .addValue("id", id)
 
-        return jdbcTemplate.queryForObject(
-            UserExpressions.FIND.addWhere(UserExpressions.ID),
+        return jdbcTemplate.query(
+            UserExpressions.FIND.addCondition(UserExpressions.ID),
             parameters,
             rowMapper(),
-        )
+        ).firstOrNull()
     }
 
     override fun findAll(): List<User> = jdbcTemplate.query(UserExpressions.FIND, rowMapper())
