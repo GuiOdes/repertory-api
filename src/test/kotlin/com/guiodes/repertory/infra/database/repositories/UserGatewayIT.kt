@@ -2,16 +2,19 @@ package com.guiodes.repertory.infra.database.repositories
 
 import com.guiodes.repertory.builders.UserBuilder
 import com.guiodes.repertory.domain.models.User
+import com.guiodes.repertory.utils.isEqualToIgnoringDates
+import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
-class UserGatewayIT(
-    @Autowired private val userRepository: UserRepository,
-) : BaseGatewayIT<User>(
-        userRepository,
-        UserBuilder(),
-    ) {
+class UserRepositoryIT(
+    @Autowired private val userRepository: UserRepository
+): BaseRepositoryIT<User>(
+    userRepository,
+    UserBuilder()
+) {
+
     private val entity = UserBuilder().build()
 
     @Test
@@ -19,7 +22,7 @@ class UserGatewayIT(
         val user = userRepository.save(entity)
         val userFound = userRepository.findByEmail(user.email)
 
-        assertThat(userFound).isEqualTo(user)
+        assertThat(userFound).isEqualToIgnoringDates(user)
     }
 
     @Test
@@ -35,7 +38,7 @@ class UserGatewayIT(
         val userRestored = userRepository.findByEmail(user.email)
 
         assertThat(userDeleted).isNull()
-        assertThat(userRestored).isEqualTo(user)
+        assertThat(userRestored).isEqualToIgnoringDates(user)
     }
 
     @Test
