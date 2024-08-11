@@ -1,4 +1,4 @@
-package com.guiodes.repertory.infra.api.requests
+package com.guiodes.repertory.domain.api.requests
 
 data class LoginRequest(
     val email: String,

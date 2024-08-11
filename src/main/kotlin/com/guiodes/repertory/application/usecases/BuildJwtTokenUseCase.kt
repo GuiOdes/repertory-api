@@ -1,7 +1,7 @@
 package com.guiodes.repertory.application.usecases
 
+import com.guiodes.repertory.domain.api.responses.LoginResponse
 import com.guiodes.repertory.domain.models.User
-import com.guiodes.repertory.infra.api.responses.LoginResponse
 import org.springframework.security.oauth2.jwt.JwtClaimsSet
 import org.springframework.security.oauth2.jwt.JwtEncoder
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters

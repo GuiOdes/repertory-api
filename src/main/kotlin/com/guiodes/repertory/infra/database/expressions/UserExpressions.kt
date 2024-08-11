@@ -59,6 +59,4 @@ object UserExpressions {
     const val ID = "ID = :id"
 
     const val EMAIL = "EMAIL = :email"
-
-    const val PASSWORD = "PASSWORD = :password"
 }

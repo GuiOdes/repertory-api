@@ -1,8 +1,8 @@
-package com.guiodes.repertory.application.repositories
+package com.guiodes.repertory.application.gateways
 
 import java.util.UUID
 
-interface BaseRepository<T> {
+interface BaseGateway<T> {
     fun save(entity: T): T
 
     fun update(entity: T): T

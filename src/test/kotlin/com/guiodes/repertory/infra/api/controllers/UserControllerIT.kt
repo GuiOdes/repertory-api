@@ -3,8 +3,7 @@ package com.guiodes.repertory.infra.api.controllers
 import com.guiodes.repertory.builders.UserBuilder
 import com.guiodes.repertory.configs.IntegrationTest
 import com.guiodes.repertory.domain.models.User
-import com.guiodes.repertory.infra.api.requests.CreateUserRequest
-import com.guiodes.repertory.infra.repositories.UserRepository
+import com.guiodes.repertory.infra.database.repositories.UserRepository
 import org.assertj.core.api.AssertionsForClassTypes.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,8 +12,8 @@ import org.springframework.http.HttpStatus
 
 class UserControllerIT(
     @Autowired private val testRestTemplate: TestRestTemplate,
-    @Autowired private val userRepository: UserRepository
-): IntegrationTest() {
+    @Autowired private val userRepository: UserRepository,
+) : IntegrationTest() {
     private val validCreateUserRequest = UserBuilder().buildRequest()
 
     @Test

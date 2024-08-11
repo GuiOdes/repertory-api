@@ -1,6 +1,6 @@
-package com.guiodes.repertory.infra.repositories
+package com.guiodes.repertory.infra.database.repositories
 
-import com.guiodes.repertory.application.repositories.UserRepository
+import com.guiodes.repertory.application.gateways.UserGateway
 import com.guiodes.repertory.domain.models.User
 import com.guiodes.repertory.infra.database.addCondition
 import com.guiodes.repertory.infra.database.expressions.UserExpressions
@@ -13,17 +13,18 @@ import java.util.UUID
 @Repository
 class UserRepository(
     private val jdbcTemplate: NamedParameterJdbcTemplate,
-) : UserRepository {
+) : UserGateway {
     override fun findByEmail(email: String): User? {
         val parameters =
             MapSqlParameterSource()
                 .addValue("email", email)
 
-        return jdbcTemplate.query(
-            UserExpressions.FIND.addCondition(UserExpressions.EMAIL),
-            parameters,
-            rowMapper(),
-        ).firstOrNull()
+        return jdbcTemplate
+            .query(
+                UserExpressions.FIND.addCondition(UserExpressions.EMAIL),
+                parameters,
+                rowMapper(),
+            ).firstOrNull()
     }
 
     override fun save(entity: User): User {
@@ -78,11 +79,12 @@ class UserRepository(
             MapSqlParameterSource()
                 .addValue("id", id)
 
-        return jdbcTemplate.query(
-            UserExpressions.FIND.addCondition(UserExpressions.ID),
-            parameters,
-            rowMapper(),
-        ).firstOrNull()
+        return jdbcTemplate
+            .query(
+                UserExpressions.FIND.addCondition(UserExpressions.ID),
+                parameters,
+                rowMapper(),
+            ).firstOrNull()
     }
 
     override fun findAll(): List<User> = jdbcTemplate.query(UserExpressions.FIND, rowMapper())

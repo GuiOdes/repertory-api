@@ -1,8 +1,8 @@
 package com.guiodes.repertory.infra.api.controllers
 
 import com.guiodes.repertory.application.usecases.CreateUserUseCase
+import com.guiodes.repertory.domain.api.requests.CreateUserRequest
 import com.guiodes.repertory.domain.models.User
-import com.guiodes.repertory.infra.api.requests.CreateUserRequest
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

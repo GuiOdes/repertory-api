@@ -1,26 +1,23 @@
-package com.guiodes.repertory.infra.repositories
+package com.guiodes.repertory.infra.database.repositories
 
-import com.guiodes.repertory.application.repositories.BaseRepository
+import com.guiodes.repertory.application.gateways.BaseGateway
 import com.guiodes.repertory.builders.BaseEntityBuilder
 import com.guiodes.repertory.configs.IntegrationTest
 import com.guiodes.repertory.domain.interfaces.BaseEntity
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import java.time.LocalDateTime
 
-abstract class BaseRepositoryIT<E: BaseEntity>(
-    private val repository: BaseRepository<E>,
-    private val entityBuilder: BaseEntityBuilder<E>
-): IntegrationTest() {
-
+abstract class BaseGatewayIT<E : BaseEntity>(
+    private val repository: BaseGateway<E>,
+    private val entityBuilder: BaseEntityBuilder<E>,
+) : IntegrationTest() {
     @Test
     fun `Should test basic database operations`() {
         val entity = entityBuilder.build()
 
         repository.save(entity)
 
-        val foundEntity = repository.findById(entity.id!!)
+        val foundEntity = repository.findById(entity.id)
 
         val findAll = repository.findAll()
 
@@ -32,7 +29,7 @@ abstract class BaseRepositoryIT<E: BaseEntity>(
 
         repository.delete(entity)
 
-        val deletedEntity = repository.findById(entity.id!!)
+        val deletedEntity = repository.findById(entity.id)
 
         assertThat(deletedEntity).isNull()
     }

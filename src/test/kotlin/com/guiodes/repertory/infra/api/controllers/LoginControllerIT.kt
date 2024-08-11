@@ -3,10 +3,9 @@ package com.guiodes.repertory.infra.api.controllers
 import com.guiodes.repertory.application.usecases.CreateUserUseCase
 import com.guiodes.repertory.builders.UserBuilder
 import com.guiodes.repertory.configs.IntegrationTest
+import com.guiodes.repertory.domain.api.requests.LoginRequest
+import com.guiodes.repertory.domain.api.responses.LoginResponse
 import com.guiodes.repertory.domain.models.User
-import com.guiodes.repertory.infra.api.requests.CreateUserRequest
-import com.guiodes.repertory.infra.api.requests.LoginRequest
-import com.guiodes.repertory.infra.api.responses.LoginResponse
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

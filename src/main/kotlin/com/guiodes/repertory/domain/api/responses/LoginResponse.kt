@@ -1,4 +1,4 @@
-package com.guiodes.repertory.infra.api.responses
+package com.guiodes.repertory.domain.api.responses
 
 data class LoginResponse(
     val token: String,
