@@ -1,0 +1,95 @@
+@startuml
+
+entity "TB_USER" as tb_user {
+    +ID: UUID
+    NAME: VARCHAR
+    EMAIL: VARCHAR
+    PASSWORD: VARCHAR(64)
+    IS_ACTIVE: BOOLEAN
+    CREATED_AT: TIMESTAMP
+    UPDATED_AT: TIMESTAMP
+}
+
+entity "AUTHORITY" as authority {
+    +ID: UUID
+    NAME: VARCHAR
+    CREATED_AT: TIMESTAMP
+    UPDATED_AT: TIMESTAMP
+}
+
+entity "USER_AUTHORITY" as user_authority {
+    +USER_ID: UUID
+    +AUTHORITY_ID: UUID
+    CREATED_AT: TIMESTAMP
+    UPDATED_AT: TIMESTAMP
+}
+
+entity "INSTRUMENT" as instrument {
+    +ID: UUID
+    NAME: VARCHAR
+    CREATED_AT: TIMESTAMP
+    UPDATED_AT: TIMESTAMP
+}
+
+entity "USER_INSTRUMENT" as user_instrument {
+    +USER_ID: UUID
+    +INSTRUMENT_ID: UUID
+    CREATED_AT: TIMESTAMP
+    UPDATED_AT: TIMESTAMP
+}
+
+entity "WORSHIP_MINISTRY" as worship_ministry {
+    +ID: UUID
+    NAME: VARCHAR
+    CREATED_AT: TIMESTAMP
+    UPDATED_AT: TIMESTAMP
+}
+
+entity "USER_MINISTRY" as user_ministry {
+    +USER_ID: UUID
+    +MINISTRY_ID: UUID
+    IS_ADMIN: BOOLEAN
+    CREATED_AT: TIMESTAMP
+    UPDATED_AT: TIMESTAMP
+}
+
+entity "MUSIC" as music {
+    +ID: UUID
+    NAME: VARCHAR
+    "KEY": VARCHAR
+    CHORD_LINK: VARCHAR
+    LYRICS_LINK: VARCHAR
+    VIDEO_LINK: VARCHAR
+    CAPO: INTEGER
+    IS_READY_TO_PLAY: BOOLEAN
+    WORSHIP_MINISTRY_ID: UUID
+    CREATED_AT: TIMESTAMP
+    UPDATED_AT: TIMESTAMP
+}
+
+entity "REPERTORY" as repertory {
+    +ID: UUID
+    PLAY_DATE: DATE
+    CREATED_AT: TIMESTAMP
+    UPDATED_AT: TIMESTAMP
+}
+
+entity "REPERTORY_MUSIC" as repertory_music {
+    +REPERTORY_ID: UUID
+    +MUSIC_ID: UUID
+    OBSERVATION: VARCHAR(255)
+    CREATED_AT: TIMESTAMP
+    UPDATED_AT: TIMESTAMP
+}
+
+tb_user ||--o{ user_authority : ""
+authority ||--o{ user_authority : ""
+tb_user ||--o{ user_instrument : ""
+instrument ||--o{ user_instrument : ""
+tb_user ||--o{ user_ministry : ""
+worship_ministry ||--o{ user_ministry : ""
+worship_ministry ||--o{ music : ""
+repertory ||--o{ repertory_music : ""
+music ||--o{ repertory_music : ""
+
+@enduml

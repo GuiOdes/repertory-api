@@ -1,20 +1,18 @@
-package com.guiodes.repertory.infra.repositories
+package com.guiodes.repertory.infra.database.repositories
 
 import com.guiodes.repertory.builders.UserBuilder
 import com.guiodes.repertory.domain.models.User
 import com.guiodes.repertory.utils.isEqualToIgnoringDates
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
 class UserRepositoryIT(
-    @Autowired private val userRepository: UserRepository
-): BaseRepositoryIT<User>(
-    userRepository,
-    UserBuilder()
-) {
-
+    @Autowired private val userRepository: UserRepository,
+) : BaseGatewayIT<User>(
+        userRepository,
+        UserBuilder(),
+    ) {
     private val entity = UserBuilder().build()
 
     @Test
@@ -33,7 +31,7 @@ class UserRepositoryIT(
 
         val userDeleted = userRepository.findByEmail(user.email)
 
-        userRepository.restoreById(user.id!!)
+        userRepository.restoreById(user.id)
 
         val userRestored = userRepository.findByEmail(user.email)
 

@@ -2,8 +2,8 @@ package com.guiodes.repertory.infra.api.controllers
 
 import com.guiodes.repertory.application.usecases.AuthenticateUserUseCase
 import com.guiodes.repertory.application.usecases.DoRefreshTokenUseCase
-import com.guiodes.repertory.infra.api.requests.LoginRequest
-import com.guiodes.repertory.infra.api.responses.LoginResponse
+import com.guiodes.repertory.domain.api.requests.LoginRequest
+import com.guiodes.repertory.domain.api.responses.LoginResponse
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader

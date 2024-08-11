@@ -5,7 +5,7 @@ import com.guiodes.repertory.application.usecases.BuildJwtTokenUseCase
 import com.guiodes.repertory.application.usecases.CreateUserUseCase
 import com.guiodes.repertory.application.usecases.DecodeJwtTokenUseCase
 import com.guiodes.repertory.application.usecases.DoRefreshTokenUseCase
-import com.guiodes.repertory.infra.repositories.UserRepository
+import com.guiodes.repertory.infra.database.repositories.UserRepository
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

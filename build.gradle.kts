@@ -67,10 +67,11 @@ tasks.named("build") {
     dependsOn("koverHtmlReport")
 }
 
-val koverClassesToExclude = listOf(
-    "com.guiodes.repertory.application.usecases.BuildJwtTokenUseCase",
-    "com.guiodes.repertory.RepertoryApplicationKt"
-)
+val koverClassesToExclude =
+    listOf(
+        "com.guiodes.repertory.application.usecases.BuildJwtTokenUseCase",
+        "com.guiodes.repertory.RepertoryApplicationKt",
+    )
 
 val koverPackagesToExclude = emptyList<String>()
 
