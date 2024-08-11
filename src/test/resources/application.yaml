@@ -1,0 +1,11 @@
+spring:
+  flyway:
+    clean-disabled: false
+
+
+security:
+  jwt:
+    expiration-seconds: 86400000
+  key:
+    public: classpath:key.pub
+    private: classpath:key.app

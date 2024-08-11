@@ -4,7 +4,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class UtilsTest {
-
     @Test
     fun `should add condition with AND when there is a WHERE clause`() {
         val sql = "SELECT * FROM table WHERE column = 1"

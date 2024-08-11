@@ -8,5 +8,9 @@ class TestContainersInitializer : ApplicationContextInitializer<ConfigurableAppl
 
     override fun initialize(applicationContext: ConfigurableApplicationContext) {
         postgresContainer.configure(applicationContext)
+
+        System.setProperty("spring.datasource.url", postgresContainer.jdbcUrl)
+        System.setProperty("spring.datasource.username", postgresContainer.username)
+        System.setProperty("spring.datasource.password", postgresContainer.password)
     }
 }
