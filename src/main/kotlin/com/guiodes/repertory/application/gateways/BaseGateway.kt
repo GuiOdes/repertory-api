@@ -10,6 +10,4 @@ interface BaseGateway<T> {
     fun delete(entity: T)
 
     fun findById(id: UUID): T?
-
-    fun findAll(): List<T>
 }

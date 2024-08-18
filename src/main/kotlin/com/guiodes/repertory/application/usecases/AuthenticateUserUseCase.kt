@@ -1,6 +1,7 @@
 package com.guiodes.repertory.application.usecases
 
 import com.guiodes.repertory.application.exceptions.NotFoundException
+import com.guiodes.repertory.application.gateways.AuthorityGateway
 import com.guiodes.repertory.application.gateways.UserGateway
 import com.guiodes.repertory.domain.api.requests.LoginRequest
 import com.guiodes.repertory.domain.api.responses.LoginResponse
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 class AuthenticateUserUseCase(
     private val userGateway: UserGateway,
+    private val authorityGateway: AuthorityGateway,
     private val passwordEncoder: BCryptPasswordEncoder,
     private val buildJwtTokenUseCase: BuildJwtTokenUseCase,
 ) {
@@ -26,6 +28,8 @@ class AuthenticateUserUseCase(
             throw BadCredentialsException("Invalid credentials")
         }
 
-        return buildJwtTokenUseCase.execute(user)
+        val authorities = authorityGateway.findByUserId(user.id)
+
+        return buildJwtTokenUseCase.execute(user, authorities)
     }
 }

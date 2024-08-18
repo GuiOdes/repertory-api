@@ -6,7 +6,9 @@ import com.guiodes.repertory.infra.database.addCondition
 import com.guiodes.repertory.infra.database.expressions.AuthorityExpressions.CREATE
 import com.guiodes.repertory.infra.database.expressions.AuthorityExpressions.DELETE
 import com.guiodes.repertory.infra.database.expressions.AuthorityExpressions.FIND
+import com.guiodes.repertory.infra.database.expressions.AuthorityExpressions.FIND_USER_AUTHORITY
 import com.guiodes.repertory.infra.database.expressions.AuthorityExpressions.ID
+import com.guiodes.repertory.infra.database.expressions.AuthorityExpressions.SET_TO_USER
 import com.guiodes.repertory.infra.database.expressions.AuthorityExpressions.UPDATE
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
@@ -18,6 +20,34 @@ import java.util.UUID
 class AuthorityRepository(
     private val namedParameterJdbcTemplate: NamedParameterJdbcTemplate,
 ) : AuthorityGateway {
+    override fun findByUserId(userId: UUID): List<Authority> {
+        val parameters =
+            MapSqlParameterSource()
+                .addValue("userId", userId)
+
+        return namedParameterJdbcTemplate
+            .query(
+                FIND_USER_AUTHORITY,
+                parameters,
+                rowMapper(),
+            )
+    }
+
+    override fun setToUser(
+        userId: UUID,
+        authorityId: UUID,
+    ) {
+        val parameters =
+            MapSqlParameterSource()
+                .addValue("userId", userId)
+                .addValue("authorityId", authorityId)
+
+        namedParameterJdbcTemplate.update(
+            SET_TO_USER,
+            parameters,
+        )
+    }
+
     override fun save(entity: Authority): Authority {
         val parameters =
             MapSqlParameterSource()
@@ -72,12 +102,6 @@ class AuthorityRepository(
                 rowMapper(),
             ).firstOrNull()
     }
-
-    override fun findAll(): List<Authority> =
-        namedParameterJdbcTemplate.query(
-            FIND,
-            rowMapper(),
-        )
 
     fun rowMapper(): (ResultSet, Int) -> Authority =
         { rs, _ ->

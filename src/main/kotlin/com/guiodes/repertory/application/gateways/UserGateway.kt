@@ -6,5 +6,7 @@ import java.util.UUID
 interface UserGateway : BaseGateway<User> {
     fun findByEmail(email: String): User?
 
+    fun existsById(id: UUID): Boolean
+
     fun restoreById(id: UUID)
 }

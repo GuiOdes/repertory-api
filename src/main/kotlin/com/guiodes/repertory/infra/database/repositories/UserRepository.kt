@@ -4,6 +4,8 @@ import com.guiodes.repertory.application.gateways.UserGateway
 import com.guiodes.repertory.domain.models.User
 import com.guiodes.repertory.infra.database.addCondition
 import com.guiodes.repertory.infra.database.expressions.UserExpressions
+import com.guiodes.repertory.infra.database.expressions.UserExpressions.EXISTS
+import com.guiodes.repertory.infra.database.expressions.UserExpressions.ID
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import org.springframework.stereotype.Repository
@@ -25,6 +27,18 @@ class UserRepository(
                 parameters,
                 rowMapper(),
             ).firstOrNull()
+    }
+
+    override fun existsById(id: UUID): Boolean {
+        val parameters =
+            MapSqlParameterSource()
+                .addValue("id", id)
+
+        return jdbcTemplate.queryForObject(
+            EXISTS.addCondition(ID),
+            parameters,
+            Boolean::class.java
+        )!!
     }
 
     override fun save(entity: User): User {
@@ -81,15 +95,13 @@ class UserRepository(
 
         return jdbcTemplate
             .query(
-                UserExpressions.FIND.addCondition(UserExpressions.ID),
+                UserExpressions.FIND.addCondition(ID),
                 parameters,
                 rowMapper(),
             ).firstOrNull()
     }
 
-    override fun findAll(): List<User> = jdbcTemplate.query(UserExpressions.FIND, rowMapper())
-
-    private fun rowMapper(): (rs: ResultSet, rowNum: Int) -> User =
+    private fun rowMapper(): (ResultSet, Int) -> User =
         { rs, _ ->
             User(
                 id = UUID.fromString(rs.getString("ID")),

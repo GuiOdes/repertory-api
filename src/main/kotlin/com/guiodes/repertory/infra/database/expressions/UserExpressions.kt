@@ -34,6 +34,13 @@ object UserExpressions {
         WHERE IS_ACTIVE = TRUE
     """
 
+    const val EXISTS = """
+        SELECT
+            COUNT(1) > 0
+        FROM TB_USER
+        WHERE IS_ACTIVE = TRUE
+    """
+
     const val UPDATE = """
         UPDATE TB_USER SET
             NAME = :name,

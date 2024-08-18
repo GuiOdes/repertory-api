@@ -1,11 +1,13 @@
 package com.guiodes.repertory.infra.api.controllers
 
 import com.guiodes.repertory.application.usecases.CreateUserUseCase
+import com.guiodes.repertory.builders.AuthorityBuilder
 import com.guiodes.repertory.builders.UserBuilder
 import com.guiodes.repertory.configs.IntegrationTest
 import com.guiodes.repertory.domain.api.requests.LoginRequest
 import com.guiodes.repertory.domain.api.responses.LoginResponse
 import com.guiodes.repertory.domain.models.User
+import com.guiodes.repertory.infra.database.repositories.AuthorityRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -20,14 +22,18 @@ class LoginControllerIT(
     @Autowired private val testRestTemplate: TestRestTemplate,
     @Autowired private val createUserUseCase: CreateUserUseCase,
     @Autowired private val jwtDecoder: JwtDecoder,
+    @Autowired private val authorityRepository: AuthorityRepository,
 ) : IntegrationTest() {
     private val request = UserBuilder().buildRequest()
+    private val authorities = listOf(AuthorityBuilder().build())
 
     private lateinit var user: User
 
     @BeforeEach
     fun setup() {
         user = createUserUseCase.execute(request)
+        authorityRepository.save(authorities.first())
+        authorityRepository.setToUser(user.id, authorities.first().id)
     }
 
     @Test
@@ -48,7 +54,7 @@ class LoginControllerIT(
             assertThat(jwt.subject).isEqualTo(user.id.toString())
             assertThat(jwt.claims["email"]).isEqualTo(user.email)
             assertThat(jwt.claims["name"]).isEqualTo(user.name)
-            assertThat(jwt.claims["authorities"]).isEqualTo(user.authorities)
+            assertThat(jwt.claims["authorities"]).isEqualTo(authorities.map { it.name })
         }
     }
 

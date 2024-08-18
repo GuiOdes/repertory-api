@@ -47,4 +47,13 @@ class UserRepositoryIT(
 
         assertThat(userUpdated).isEqualTo(user.copy(name = "New Name"))
     }
+
+    @Test
+    fun `should verify if exists by id`() {
+        assertThat(userRepository.existsById(entity.id)).isFalse()
+
+        val user = userRepository.save(entity)
+
+        assertThat(userRepository.existsById(user.id)).isTrue()
+    }
 }

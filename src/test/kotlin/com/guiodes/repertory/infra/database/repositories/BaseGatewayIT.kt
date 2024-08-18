@@ -20,11 +20,6 @@ abstract class BaseGatewayIT<E : BaseEntity>(
 
         val foundEntity = gateway.findById(entity.id)
 
-        val findAll = gateway.findAll()
-
-        assertThat(findAll.size).isEqualTo(1)
-        assertThat(findAll.first()).isEqualToIgnoringDates(entity)
-
         assertThat(foundEntity).isEqualToIgnoringDates(entity)
 
         gateway.delete(entity)

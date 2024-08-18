@@ -1,8 +1,9 @@
 package com.guiodes.repertory.infra.database.expressions
 
-object AuthorityExpressions {
+object InstrumentExpressions {
+
     const val CREATE = """
-        INSERT INTO "AUTHORITY" (
+        INSERT INTO "INSTRUMENT" (
             ID,
             NAME,
             CREATED_AT,
@@ -15,47 +16,34 @@ object AuthorityExpressions {
         )
     """
 
-    const val SET_TO_USER = """
-        INSERT INTO "USER_AUTHORITY" (
-            USER_ID,
-            AUTHORITY_ID
-        ) VALUES (
-            :userId,
-            :authorityId
-        )
-    """
-
     const val FIND = """
         SELECT
             ID,
             NAME,
             CREATED_AT,
             UPDATED_AT
-        FROM "AUTHORITY"
+        FROM "INSTRUMENT"
     """
 
-    const val FIND_USER_AUTHORITY = """
+    const val EXISTS = """
         SELECT
-            A.ID,
-            A.NAME,
-            A.CREATED_AT,
-            A.UPDATED_AT
-        FROM "AUTHORITY" A
-        JOIN "USER_AUTHORITY" UA ON A.ID = UA.AUTHORITY_ID
-        WHERE UA.USER_ID = :userId
+            COUNT(1) > 0
+        FROM "INSTRUMENT"
     """
 
     const val UPDATE = """
-        UPDATE "AUTHORITY" SET
+        UPDATE "INSTRUMENT" SET
             NAME = :name,
             UPDATED_AT = :updatedAt
         WHERE ID = :id
     """
 
     const val DELETE = """
-        DELETE FROM "AUTHORITY"
+        DELETE FROM "INSTRUMENT"
         WHERE ID = :id
     """
 
     const val ID = "ID = :id"
+
+    const val NAME = "LOWER(NAME) LIKE LOWER(:name)"
 }

@@ -1,7 +1,11 @@
 package com.guiodes.repertory.infra.configs
 
+import com.guiodes.repertory.application.gateways.AuthorityGateway
+import com.guiodes.repertory.application.gateways.InstrumentGateway
 import com.guiodes.repertory.application.usecases.AuthenticateUserUseCase
 import com.guiodes.repertory.application.usecases.BuildJwtTokenUseCase
+import com.guiodes.repertory.application.usecases.CreateAuthorityUseCase
+import com.guiodes.repertory.application.usecases.CreateInstrumentUseCase
 import com.guiodes.repertory.application.usecases.CreateUserUseCase
 import com.guiodes.repertory.application.usecases.DecodeJwtTokenUseCase
 import com.guiodes.repertory.application.usecases.DoRefreshTokenUseCase
@@ -26,7 +30,8 @@ class UseCaseConfiguration {
         userRepository: UserRepository,
         passwordEncoder: BCryptPasswordEncoder,
         buildJwtTokenUseCase: BuildJwtTokenUseCase,
-    ) = AuthenticateUserUseCase(userRepository, passwordEncoder, buildJwtTokenUseCase)
+        authorityGateway: AuthorityGateway,
+    ) = AuthenticateUserUseCase(userRepository, authorityGateway, passwordEncoder, buildJwtTokenUseCase)
 
     @Bean
     fun createUserUseCase(
@@ -42,5 +47,12 @@ class UseCaseConfiguration {
         decodeJwtTokenUseCase: DecodeJwtTokenUseCase,
         buildJwtTokenUseCase: BuildJwtTokenUseCase,
         userRepository: UserRepository,
-    ) = DoRefreshTokenUseCase(decodeJwtTokenUseCase, buildJwtTokenUseCase, userRepository)
+        authorityGateway: AuthorityGateway,
+    ) = DoRefreshTokenUseCase(decodeJwtTokenUseCase, buildJwtTokenUseCase, userRepository, authorityGateway)
+
+    @Bean
+    fun createAuthorityUseCase(authorityGateway: AuthorityGateway) = CreateAuthorityUseCase(authorityGateway)
+
+    @Bean
+    fun createInstrumentUseCase(instrumentGateway: InstrumentGateway) = CreateInstrumentUseCase(instrumentGateway)
 }
