@@ -37,7 +37,7 @@ class UserRepository(
         return jdbcTemplate.queryForObject(
             EXISTS.addCondition(ID),
             parameters,
-            Boolean::class.java
+            Boolean::class.java,
         )!!
     }
 

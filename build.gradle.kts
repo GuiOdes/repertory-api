@@ -47,6 +47,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-testcontainers:3.3.2")
     testImplementation("org.testcontainers:junit-jupiter:1.20.0")
     testImplementation("org.testcontainers:postgresql:$postgresSqlTestContainersVersion")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
 }
 
 kotlin {

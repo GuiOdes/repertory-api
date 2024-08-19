@@ -19,8 +19,7 @@ class CreateUserInstrumentGatewayTest(
     @MockK private val gateway: UserInstrumentGateway,
     @MockK private val userGateway: UserGateway,
     @MockK private val instrumentGateway: InstrumentGateway,
-): UnitTest() {
-
+) : UnitTest() {
     @InjectMockKs
     private lateinit var createUserInstrumentGateway: CreateUserInstrumentGateway
 

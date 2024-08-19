@@ -7,7 +7,5 @@ interface BaseGateway<T> {
 
     fun update(entity: T): T
 
-    fun delete(entity: T)
-
     fun findById(id: UUID): T?
 }

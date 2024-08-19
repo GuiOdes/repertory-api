@@ -1,7 +1,6 @@
 package com.guiodes.repertory.infra.database.expressions
 
 object InstrumentExpressions {
-
     const val CREATE = """
         INSERT INTO "INSTRUMENT" (
             ID,

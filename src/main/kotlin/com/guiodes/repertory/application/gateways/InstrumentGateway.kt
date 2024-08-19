@@ -5,5 +5,8 @@ import java.util.UUID
 
 interface InstrumentGateway : BaseGateway<Instrument> {
     fun existsById(id: UUID): Boolean
+
     fun findByNameContaining(name: String): List<Instrument>
+
+    fun deleteByName(name: String)
 }

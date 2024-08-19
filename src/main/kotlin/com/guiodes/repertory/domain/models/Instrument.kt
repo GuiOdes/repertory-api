@@ -5,8 +5,8 @@ import java.time.LocalDateTime
 import java.util.UUID
 
 data class Instrument(
-    override val id: UUID,
+    override val id: UUID = UUID.randomUUID(),
     val name: String,
-    override val createdAt: LocalDateTime,
-    override var updatedAt: LocalDateTime
+    override val createdAt: LocalDateTime = LocalDateTime.now(),
+    override var updatedAt: LocalDateTime = LocalDateTime.now(),
 ) : BaseEntity()

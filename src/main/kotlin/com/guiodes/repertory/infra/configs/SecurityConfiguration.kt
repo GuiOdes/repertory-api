@@ -34,7 +34,7 @@ class SecurityConfiguration(
         httpSecurity
             .authorizeHttpRequests {
                 it
-                    .requestMatchers("/user/new", "/login")
+                    .requestMatchers(*WHITE_LIST)
                     .permitAll()
                     .anyRequest()
                     .authenticated()
@@ -62,4 +62,15 @@ class SecurityConfiguration(
 
     @Bean
     fun passwordEncoder() = BCryptPasswordEncoder()
+
+    companion object {
+        val WHITE_LIST =
+            arrayOf(
+                "/v3/api-docs/**",
+                "/user/new",
+                "/login",
+                "/v3/api-docs",
+                "/swagger-ui/**",
+            )
+    }
 }

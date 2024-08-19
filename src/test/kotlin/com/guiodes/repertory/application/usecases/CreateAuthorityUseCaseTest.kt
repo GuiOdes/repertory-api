@@ -10,22 +10,21 @@ import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.slot
 import io.mockk.verify
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class CreateAuthorityUseCaseTest(
-    @MockK private val gateway: AuthorityGateway
-): UnitTest() {
-
+    @MockK private val gateway: AuthorityGateway,
+) : UnitTest() {
     @InjectMockKs
     private lateinit var createAuthorityUseCase: CreateAuthorityUseCase
 
     @Test
     fun `should create authority`() {
-        val request = CreateAuthorityRequest(
-            name = "authority"
-        )
+        val request =
+            CreateAuthorityRequest(
+                name = "authority",
+            )
         val authority = slot<Authority>()
 
         every { gateway.save(capture(authority)) } returns AuthorityBuilder().build()

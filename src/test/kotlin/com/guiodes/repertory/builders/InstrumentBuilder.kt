@@ -4,8 +4,7 @@ import com.guiodes.repertory.domain.models.Instrument
 import java.time.LocalDateTime
 import java.util.UUID
 
-class InstrumentBuilder: BaseEntityBuilder<Instrument> {
-
+class InstrumentBuilder : BaseEntityBuilder<Instrument> {
     private val id: UUID = UUID.randomUUID()
     private val name: String = "name"
     private val createdAt: LocalDateTime = LocalDateTime.now()

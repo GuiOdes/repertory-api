@@ -10,9 +10,8 @@ import io.mockk.verify
 import org.junit.jupiter.api.Test
 
 class FindUserInstrumentsUseCaseTest(
-    @MockK private val gateway: UserInstrumentGateway
-): UnitTest() {
-
+    @MockK private val gateway: UserInstrumentGateway,
+) : UnitTest() {
     @InjectMockKs
     private lateinit var findUserInstrumentsUseCase: FindUserInstrumentsUseCase
 

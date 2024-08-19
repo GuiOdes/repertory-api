@@ -3,18 +3,16 @@ package com.guiodes.repertory.infra.database.repositories
 import com.guiodes.repertory.builders.InstrumentBuilder
 import com.guiodes.repertory.domain.models.Instrument
 import com.guiodes.repertory.utils.isEqualToIgnoringDates
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
 class InstrumentRepositoryIT(
-    @Autowired private val instrumentRepository: InstrumentRepository
+    @Autowired private val instrumentRepository: InstrumentRepository,
 ) : BaseGatewayIT<Instrument>(
-    instrumentRepository,
-    InstrumentBuilder()
-) {
-
+        instrumentRepository,
+        InstrumentBuilder(),
+    ) {
     private val instrument = InstrumentBuilder().build()
 
     @Test

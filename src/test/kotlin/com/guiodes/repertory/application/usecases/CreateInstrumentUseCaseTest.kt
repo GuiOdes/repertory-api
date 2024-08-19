@@ -14,17 +14,17 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class CreateInstrumentUseCaseTest(
-    @MockK private val gateway: InstrumentGateway
-): UnitTest() {
-
+    @MockK private val gateway: InstrumentGateway,
+) : UnitTest() {
     @InjectMockKs
     private lateinit var createInstrumentUseCase: CreateInstrumentUseCase
 
     @Test
     fun `should create instrument`() {
-        val request = CreateInstrumentRequest(
-            name = "Guitar"
-        )
+        val request =
+            CreateInstrumentRequest(
+                name = "Guitar",
+            )
         val instrument = slot<Instrument>()
 
         every { gateway.save(capture(instrument)) } returns InstrumentBuilder().build().copy(name = request.name)

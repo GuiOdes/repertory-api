@@ -13,9 +13,8 @@ import org.junit.jupiter.api.Test
 import java.util.UUID
 
 class RemoveUserInstrumentUseCaseTest(
-    @MockK private val gateway: UserInstrumentGateway
-): UnitTest() {
-
+    @MockK private val gateway: UserInstrumentGateway,
+) : UnitTest() {
     @InjectMockKs
     private lateinit var removeUserInstrumentUseCase: RemoveUserInstrumentUseCase
 

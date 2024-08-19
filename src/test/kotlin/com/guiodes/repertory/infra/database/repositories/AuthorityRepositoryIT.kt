@@ -11,8 +11,7 @@ class AuthorityRepositoryIT(
 ) : BaseGatewayIT<Authority>(
         authorityRepository,
         AuthorityBuilder(),
-) {
-
+    ) {
     @Test
     fun `Should update authority`() {
         val authority = authorityRepository.save(AuthorityBuilder().build())
