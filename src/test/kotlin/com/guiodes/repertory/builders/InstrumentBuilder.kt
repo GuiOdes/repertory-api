@@ -6,7 +6,7 @@ import java.util.UUID
 
 class InstrumentBuilder : BaseEntityBuilder<Instrument> {
     private val id: UUID = UUID.randomUUID()
-    private val name: String = "name"
+    private val name: String = "Guitar"
     private val createdAt: LocalDateTime = LocalDateTime.now()
     private val updatedAt: LocalDateTime = LocalDateTime.now()
 

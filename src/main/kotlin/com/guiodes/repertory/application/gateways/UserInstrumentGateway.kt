@@ -6,4 +6,6 @@ import java.util.UUID
 
 interface UserInstrumentGateway : BaseGateway<UserInstrument> {
     fun findAllByUser(userId: UUID): List<Instrument>
+
+    fun delete(userInstrument: UserInstrument)
 }

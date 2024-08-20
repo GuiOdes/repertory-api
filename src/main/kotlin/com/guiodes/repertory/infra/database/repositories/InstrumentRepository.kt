@@ -75,13 +75,13 @@ class InstrumentRepository(
         return entity
     }
 
-    override fun delete(entity: Instrument) {
+    override fun deleteByName(name: String) {
         val parameters =
             MapSqlParameterSource()
-                .addValue("id", entity.id)
+                .addValue("name", name)
 
         jdbcTemplate.update(
-            InstrumentExpressions.DELETE,
+            InstrumentExpressions.DELETE_BY_NAME,
             parameters,
         )
     }

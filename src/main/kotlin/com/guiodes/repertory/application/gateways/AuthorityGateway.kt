@@ -10,4 +10,6 @@ interface AuthorityGateway : BaseGateway<Authority> {
         userId: UUID,
         authorityId: UUID,
     )
+
+    fun deleteByName(name: String)
 }

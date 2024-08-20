@@ -72,10 +72,10 @@ class UserRepository(
         return entity
     }
 
-    override fun delete(entity: User) {
+    override fun deleteById(id: UUID) {
         val parameters =
             MapSqlParameterSource()
-                .addValue("id", entity.id)
+                .addValue("id", id)
 
         jdbcTemplate.update(UserExpressions.SOFT_DELETE, parameters)
     }

@@ -1,50 +1,49 @@
 package com.guiodes.repertory.infra.api.controllers
 
-import com.guiodes.repertory.application.gateways.InstrumentGateway
+import com.guiodes.repertory.application.usecases.CreateInstrumentUseCase
+import com.guiodes.repertory.application.usecases.FindInstrumentUseCase
+import com.guiodes.repertory.domain.api.requests.CreateInstrumentRequest
 import com.guiodes.repertory.domain.models.Instrument
-import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
 
 @RestController
 @RequestMapping("/instrument")
 class InstrumentController(
-    private val instrumentGateway: InstrumentGateway,
+    private val createInstrumentUseCase: CreateInstrumentUseCase,
+    private val findInstrumentUseCase: FindInstrumentUseCase,
 ) {
     @PostMapping
     fun createInstrument(
-        @RequestBody name: String,
-    ) {
-        instrumentGateway.save(Instrument(name = name))
-    }
+        @RequestBody createInstrumentRequest: CreateInstrumentRequest,
+    ) = createInstrumentUseCase.execute(createInstrumentRequest)
 
-    @GetMapping
+    @GetMapping("/list/name/{name}")
     fun listInstruments(
-        @RequestParam name: String,
-    ): List<Instrument> = instrumentGateway.findByNameContaining(name)
+        @PathVariable name: String,
+    ): List<Instrument> = findInstrumentUseCase.execute(name)
 
-    @GetMapping
+    @GetMapping("/list/id/{id}")
     fun listById(
-        @RequestParam id: UUID,
-    ): Instrument? = instrumentGateway.findById(id)
+        @PathVariable id: UUID,
+    ): Instrument? = findInstrumentUseCase.execute(id)
 
-    @DeleteMapping
-    fun deleteInstrument(
-        @RequestBody name: String,
-    ) {
-        instrumentGateway.deleteByName(name)
-    }
+//    @DeleteMapping
+//    fun deleteInstrument(
+//        @RequestBody name: String,
+//    ) {
+//        instrumentGateway.deleteByName(name)
+//    }
 
-    @PutMapping
-    fun updateInstrument(
-        @RequestBody instrument: Instrument,
-    ) {
-        instrumentGateway.update(instrument)
-    }
+//    @PutMapping
+//    fun updateInstrument(
+//        @RequestBody instrument: Instrument,
+//    ) {
+//        instrumentGateway.update(instrument)
+//    }
 }

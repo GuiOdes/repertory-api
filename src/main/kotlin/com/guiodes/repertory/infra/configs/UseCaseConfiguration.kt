@@ -9,6 +9,7 @@ import com.guiodes.repertory.application.usecases.CreateInstrumentUseCase
 import com.guiodes.repertory.application.usecases.CreateUserUseCase
 import com.guiodes.repertory.application.usecases.DecodeJwtTokenUseCase
 import com.guiodes.repertory.application.usecases.DoRefreshTokenUseCase
+import com.guiodes.repertory.application.usecases.FindInstrumentUseCase
 import com.guiodes.repertory.infra.database.repositories.UserRepository
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -55,4 +56,7 @@ class UseCaseConfiguration {
 
     @Bean
     fun createInstrumentUseCase(instrumentGateway: InstrumentGateway) = CreateInstrumentUseCase(instrumentGateway)
+
+    @Bean
+    fun findInstrumentUseCase(instrumentGateway: InstrumentGateway) = FindInstrumentUseCase(instrumentGateway)
 }

@@ -21,11 +21,5 @@ abstract class BaseGatewayIT<E : BaseEntity>(
         val foundEntity = gateway.findById(entity.id)
 
         assertThat(foundEntity).isEqualToIgnoringDates(entity)
-
-        gateway.delete(entity)
-
-        val deletedEntity = gateway.findById(entity.id)
-
-        assertThat(deletedEntity).isNull()
     }
 }

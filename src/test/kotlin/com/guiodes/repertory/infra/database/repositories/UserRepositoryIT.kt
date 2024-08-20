@@ -27,7 +27,7 @@ class UserRepositoryIT(
     fun `should delete and restore user`() {
         val user = userRepository.save(entity)
 
-        userRepository.delete(user)
+        userRepository.deleteById(user.id)
 
         val userDeleted = userRepository.findByEmail(user.email)
 

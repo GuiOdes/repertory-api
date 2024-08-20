@@ -4,7 +4,7 @@ import com.guiodes.repertory.application.gateways.AuthorityGateway
 import com.guiodes.repertory.domain.models.Authority
 import com.guiodes.repertory.infra.database.addCondition
 import com.guiodes.repertory.infra.database.expressions.AuthorityExpressions.CREATE
-import com.guiodes.repertory.infra.database.expressions.AuthorityExpressions.DELETE
+import com.guiodes.repertory.infra.database.expressions.AuthorityExpressions.DELETE_BY_NAME
 import com.guiodes.repertory.infra.database.expressions.AuthorityExpressions.FIND
 import com.guiodes.repertory.infra.database.expressions.AuthorityExpressions.FIND_USER_AUTHORITY
 import com.guiodes.repertory.infra.database.expressions.AuthorityExpressions.ID
@@ -79,13 +79,13 @@ class AuthorityRepository(
         return entity
     }
 
-    override fun delete(entity: Authority) {
+    override fun deleteByName(name: String) {
         val parameters =
             MapSqlParameterSource()
-                .addValue("id", entity.id)
+                .addValue("name", name)
 
         namedParameterJdbcTemplate.update(
-            DELETE,
+            DELETE_BY_NAME,
             parameters,
         )
     }

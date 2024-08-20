@@ -52,9 +52,9 @@ object AuthorityExpressions {
         WHERE ID = :id
     """
 
-    const val DELETE = """
+    const val DELETE_BY_NAME = """
         DELETE FROM "AUTHORITY"
-        WHERE ID = :id
+        WHERE NAME = :name
     """
 
     const val ID = "ID = :id"

@@ -9,4 +9,6 @@ interface UserGateway : BaseGateway<User> {
     fun existsById(id: UUID): Boolean
 
     fun restoreById(id: UUID)
+
+    fun deleteById(id: UUID)
 }
