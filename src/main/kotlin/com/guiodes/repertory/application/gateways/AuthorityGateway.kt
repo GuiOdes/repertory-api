@@ -12,4 +12,6 @@ interface AuthorityGateway : BaseGateway<Authority> {
     )
 
     fun deleteByName(name: String)
+
+    fun isUserAdmin(userId: UUID): Boolean
 }

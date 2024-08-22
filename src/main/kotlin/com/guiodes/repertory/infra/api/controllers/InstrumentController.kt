@@ -4,6 +4,7 @@ import com.guiodes.repertory.application.usecases.CreateInstrumentUseCase
 import com.guiodes.repertory.application.usecases.FindInstrumentUseCase
 import com.guiodes.repertory.domain.api.requests.CreateInstrumentRequest
 import com.guiodes.repertory.domain.models.Instrument
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -32,18 +33,4 @@ class InstrumentController(
     fun listById(
         @PathVariable id: UUID,
     ): Instrument? = findInstrumentUseCase.execute(id)
-
-//    @DeleteMapping
-//    fun deleteInstrument(
-//        @RequestBody name: String,
-//    ) {
-//        instrumentGateway.deleteByName(name)
-//    }
-
-//    @PutMapping
-//    fun updateInstrument(
-//        @RequestBody instrument: Instrument,
-//    ) {
-//        instrumentGateway.update(instrument)
-//    }
 }

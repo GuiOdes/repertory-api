@@ -45,6 +45,15 @@ object AuthorityExpressions {
         WHERE UA.USER_ID = :userId
     """
 
+    const val IS_USER_ADMIN = """
+        SELECT
+            COUNT(1) > 0
+        FROM "AUTHORITY" A
+        JOIN "USER_AUTHORITY" UA ON A.ID = UA.AUTHORITY_ID
+        WHERE UA.USER_ID = :userId
+        AND A.NAME = 'ADMIN'
+    """
+
     const val UPDATE = """
         UPDATE "AUTHORITY" SET
             NAME = :name,

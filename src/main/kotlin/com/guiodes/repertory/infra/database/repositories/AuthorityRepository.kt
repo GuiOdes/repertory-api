@@ -8,6 +8,7 @@ import com.guiodes.repertory.infra.database.expressions.AuthorityExpressions.DEL
 import com.guiodes.repertory.infra.database.expressions.AuthorityExpressions.FIND
 import com.guiodes.repertory.infra.database.expressions.AuthorityExpressions.FIND_USER_AUTHORITY
 import com.guiodes.repertory.infra.database.expressions.AuthorityExpressions.ID
+import com.guiodes.repertory.infra.database.expressions.AuthorityExpressions.IS_USER_ADMIN
 import com.guiodes.repertory.infra.database.expressions.AuthorityExpressions.SET_TO_USER
 import com.guiodes.repertory.infra.database.expressions.AuthorityExpressions.UPDATE
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
@@ -101,6 +102,18 @@ class AuthorityRepository(
                 parameters,
                 rowMapper(),
             ).firstOrNull()
+    }
+
+    override fun isUserAdmin(userId: UUID): Boolean {
+        val parameters =
+            MapSqlParameterSource()
+                .addValue("userId", userId)
+
+        return namedParameterJdbcTemplate.queryForObject(
+            IS_USER_ADMIN,
+            parameters,
+            Boolean::class.java,
+        )!!
     }
 
     fun rowMapper(): (ResultSet, Int) -> Authority =
